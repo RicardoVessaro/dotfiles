@@ -28,7 +28,8 @@ yay -S --needed \
 	ttf-droid ttf-monaco ttf-fira-sans ttf-liberation noto-fonts \
 	noto-fonts-cjk noto-fonts-emoji noto-fonts-extra nordvpn-bin \
 	tidal-hifi-bin mint-themes mint-backgrounds docker docker-compose \
-	papirus-icon-theme-git nvidia-lts nvidia-utils bluez bluez-utils
+	papirus-icon-theme-git nvidia-lts nvidia-utils bluez bluez-utils \
+	qemu-full
 
 if has_command bluetoothctl; then
 	sudo systemctl enable bluetooth.service
