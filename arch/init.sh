@@ -12,13 +12,13 @@ has_command() {
 # YAY
 #------------------------------------------------------------
 
-URL_YAY="https://aur.archlinux.org/yay.git"
+URL_PIKAUR="https://aur.archlinux.org/pikaur.git"
 
-if ! has_command yay; then
-	cd $(mktemp -d) && git clone $URL_YAY && cd yay && makepkg -si && cd $HOME
+if ! has_command pikaur; then
+	cd $(mktemp -d) && sudo pacman -S --needed base-devel git && git clone $URL_PIKAUR && cd pikaur && makepkg -fsri && cd $HOME
 fi
 
-yay -S --needed \
+pikaur -S --needed \
 	helix fd xclip bat fish ripgrep exa base-devel zip less git clang \
 	cuda-tools tmux tmux-plugin-manager cmake llvm v4l-utils bottom \
 	brave-nightly-bin vivaldi xed xviewer xreader xplayer pix \
