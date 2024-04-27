@@ -175,6 +175,7 @@ echo "$(
 		set -U fish_pager_color_progress brwhite --background=cyan
 	EOF
 )" | fish -c "source -"
+
 #------------------------------------------------------------
 # REMOVING BINs
 #------------------------------------------------------------
