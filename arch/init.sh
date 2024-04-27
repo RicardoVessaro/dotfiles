@@ -48,7 +48,7 @@ fi
 
 if has_command docker; then
 	sudo usermod -aG docker $USER
-	sudo systemctl start docker.service
+	sudo systemctl enable docker.service docker.socket
 fi
 
 if has_command virt-manager; then
