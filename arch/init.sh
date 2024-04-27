@@ -90,17 +90,17 @@ curl -Lfs $URL_NVM | bash
 # SHELL VARIABLES
 
 echo "$(
-    cat <<-EOF
-        set -Ux LD_LIBRARY_PATH /opt/cuda/lib64
-    EOF
+	cat <<-EOF
+		set -Ux LD_LIBRARY_PATH /opt/cuda/lib64
+	EOF
 )" | fish -c "source -"
 
 # SHELL PATH
 
 echo "$(
-    cat <<-EOF
-        fish_add_path /opt/cuda/bin
-    EOF
+	cat <<-EOF
+		fish_add_path /opt/cuda/bin
+	EOF
 )" | fish -c "source -"
 
 # KORA
