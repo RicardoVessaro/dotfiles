@@ -36,7 +36,7 @@ if has_command bluetoothctl; then
 fi
 
 if has_command nvidia-xconfig; then
-    sudo mkinitcpio -p linux
+	sudo mkinitcpio -p linux-lts
 fi
 
 if has_command nordvpn; then
