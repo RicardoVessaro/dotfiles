@@ -21,13 +21,12 @@ fi
 pikaur -S --needed \
 	helix fd xclip bat fish ripgrep exa base-devel zip less git clang \
 	tmux tmux-plugin-manager cmake llvm v4l-utils bottom \
-	brave-nightly-bin vivaldi xed xviewer xreader xplayer pix \
-	alacritty lightdm-gtk-greeter-settings obs-studio tk tree \
-	qalculate-gtk neovim neovide virt-manager pavucontrol unrar unzip \
+	alacritty obs-studio tk tree \
+	virt-manager pavucontrol unrar unzip \
 	ttf-jetbrains-mono-nerd ttf-firacode-nerd ttf-cascadia-code-nerd \
 	ttf-droid ttf-monaco ttf-fira-sans ttf-liberation noto-fonts \
 	noto-fonts-cjk noto-fonts-emoji noto-fonts-extra \
-	docker docker-compose \
+	docker docker-compose nvidia-lts nvidia-utils \
 	papirus-icon-theme-git bluez bluez-utils \
 	qemu-full
 
@@ -60,16 +59,9 @@ fi
 # VERSION MANAGER
 #------------------------------------------------------------
 
-URL_GHCUP="https://get-ghcup.haskell.org"
-URL_RUSTUP="https://sh.rustup.rs"
 URL_SDKMAN="https://get.sdkman.io"
 URL_NVM="https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh"
 
-curl -Lfs $URL_GHCUP | BOOTSTRAP_HASKELL_NONINTERACTIVE=1 \
-	BOOTSTRAP_HASKELL_ADJUST_BASHRC=1 \
-	BOOTSTRAP_HASKELL_INSTALL_HLS=1 \
-	bash
-curl -Lfs $URL_RUSTUP | bash -s -- -y
 curl -Lfs $URL_SDKMAN | bash
 curl -Lfs $URL_NVM | bash
 
@@ -112,7 +104,6 @@ echo "$(
 		alias -s lla "exa -la"
 		alias -s r   "rm -r"
 		alias -s rf  "rm -rf"
-		alias -s hx  "helix"
 	EOF
 )" | fish -c "source -"
 
@@ -150,31 +141,10 @@ echo "$(
 )" | fish -c "source -"
 
 #------------------------------------------------------------
-# REMOVING BINs
-#------------------------------------------------------------
-
-# sudo pacman -R htop vim
-
-#------------------------------------------------------------
-# REMOVES APPLICATION LINK
-#------------------------------------------------------------
-
-# sudo rm -f /usr/share/applications/avahi-discover.desktop
-# sudo rm -f /usr/share/applications/bssh.desktop
-# sudo rm -f /usr/share/applications/bvnc.desktop
-# sudo rm -f /usr/share/applications/lstopo.desktop
-# sudo rm -f /usr/share/applications/qv4l2.desktop
-# sudo rm -f /usr/share/applications/qvidcap.desktop
-# sudo rm -f /usr/share/applications/fish.desktop
-# sudo rm -f /usr/share/applications/cmake-gui.desktop
-
-#------------------------------------------------------------
 # CREATE CONFIG FOLDERS
 #------------------------------------------------------------
 
 ln -s $HOME/Projects/dotfiles/tmux $HOME/.config/tmux
-ln -s $HOME/Projects/dotfiles/nvim $HOME/.config/nvim
-ln -s $HOME/Projects/dotfiles/helix $HOME/.config/helix
 ln -s $HOME/Projects/dotfiles/bottom $HOME/.config/bottom
 ln -s $HOME/Projects/dotfiles/bat $HOME/.config/bat
 ln -s $HOME/Projects/dotfiles/alacritty $HOME/.config/alacritty
