@@ -20,31 +20,20 @@ fi
 
 pikaur -S --needed \
 	helix fd xclip bat fish ripgrep exa base-devel zip less git clang \
-	cuda-tools tmux tmux-plugin-manager cmake llvm v4l-utils bottom \
+	tmux tmux-plugin-manager cmake llvm v4l-utils bottom \
 	brave-nightly-bin vivaldi xed xviewer xreader xplayer pix \
 	alacritty lightdm-gtk-greeter-settings obs-studio tk tree \
 	qalculate-gtk neovim neovide virt-manager pavucontrol unrar unzip \
 	ttf-jetbrains-mono-nerd ttf-firacode-nerd ttf-cascadia-code-nerd \
 	ttf-droid ttf-monaco ttf-fira-sans ttf-liberation noto-fonts \
-	noto-fonts-cjk noto-fonts-emoji noto-fonts-extra nordvpn-bin \
-	tidal-hifi-bin mint-themes mint-backgrounds docker docker-compose \
-	papirus-icon-theme-git nvidia-lts nvidia-utils bluez bluez-utils \
+	noto-fonts-cjk noto-fonts-emoji noto-fonts-extra \
+	docker docker-compose \
+	papirus-icon-theme-git bluez bluez-utils \
 	qemu-full
 
 if has_command bluetoothctl; then
 	sudo systemctl enable bluetooth.service
 	sudo systemctl start bluetooth.service
-fi
-
-if has_command nvidia-xconfig; then
-	sudo mkinitcpio -p linux-lts
-fi
-
-if has_command nordvpn; then
-	sudo groupadd -r nordvpn
-	sudo gpasswd -a $USER nordvpn
-	sudo usermod -aG nordvpn $USER
-	sudo systemctl enable nordvpnd
 fi
 
 if has_command docker; then
@@ -87,22 +76,6 @@ curl -Lfs $URL_NVM | bash
 #------------------------------------------------------------
 # FISH CONFIG
 #------------------------------------------------------------
-
-# SHELL VARIABLES
-
-echo "$(
-	cat <<-EOF
-		set -Ux LD_LIBRARY_PATH /opt/cuda/lib64
-	EOF
-)" | fish -c "source -"
-
-# SHELL PATH
-
-echo "$(
-	cat <<-EOF
-		fish_add_path /opt/cuda/bin
-	EOF
-)" | fish -c "source -"
 
 # KORA
 
