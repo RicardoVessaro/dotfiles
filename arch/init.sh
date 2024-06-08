@@ -20,7 +20,7 @@ fi
 
 pikaur -S --needed \
 	helix fd xclip bat fish ripgrep exa base-devel zip less git clang \
-	tmux tmux-plugin-manager cmake llvm v4l-utils bottom \
+	cmake llvm v4l-utils bottom \
 	alacritty obs-studio tk tree \
 	virt-manager pavucontrol unrar unzip \
 	ttf-jetbrains-mono-nerd ttf-firacode-nerd ttf-cascadia-code-nerd \
@@ -144,7 +144,6 @@ echo "$(
 # CREATE CONFIG FOLDERS
 #------------------------------------------------------------
 
-ln -s $HOME/Projects/dotfiles/tmux $HOME/.config/tmux
 ln -s $HOME/Projects/dotfiles/bottom $HOME/.config/bottom
 ln -s $HOME/Projects/dotfiles/bat $HOME/.config/bat
 ln -s $HOME/Projects/dotfiles/alacritty $HOME/.config/alacritty
