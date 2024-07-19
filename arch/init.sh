@@ -199,3 +199,4 @@ ln -s $HOME/Projects/dotfiles/helix $HOME/.config/helix
 ln -s $HOME/Projects/dotfiles/bottom $HOME/.config/bottom
 ln -s $HOME/Projects/dotfiles/bat $HOME/.config/bat
 ln -s $HOME/Projects/dotfiles/alacritty $HOME/.config/alacritty
+ln -s $HOME/Projects/dotfiles/qtile $HOME/.config/qtile
