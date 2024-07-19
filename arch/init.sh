@@ -8,6 +8,10 @@ has_command() {
 	command -v "$1" >/dev/null 2>&1
 }
 
+is_nvidia() {
+	lspci | grep -I "NVIDIA" >/dev/null 2>&1
+}
+
 #------------------------------------------------------------
 # YAY
 #------------------------------------------------------------
@@ -21,23 +25,25 @@ fi
 pikaur -S --needed \
 	helix fd xclip bat fish ripgrep exa base-devel zip less git clang \
 	cuda-tools tmux tmux-plugin-manager cmake llvm v4l-utils bottom \
-	brave-nightly-bin vivaldi xed xviewer xreader xplayer pix \
-	alacritty lightdm-gtk-greeter-settings obs-studio tk tree \
+	vivaldi alacritty lightdm-gtk-greeter-settings tk tree \
 	qalculate-gtk neovim neovide virt-manager pavucontrol unrar unzip \
 	ttf-jetbrains-mono-nerd ttf-firacode-nerd ttf-cascadia-code-nerd \
 	ttf-droid ttf-monaco ttf-fira-sans ttf-liberation noto-fonts \
 	noto-fonts-cjk noto-fonts-emoji noto-fonts-extra nordvpn-bin \
-	tidal-hifi-bin mint-themes mint-backgrounds docker docker-compose \
-	papirus-icon-theme-git nvidia-lts nvidia-utils bluez bluez-utils \
-	qemu-full
+	docker docker-compose papirus-icon-theme bluez bluez-utils \
+	qemu-full dnsmasq
 
 if has_command bluetoothctl; then
 	sudo systemctl enable bluetooth.service
 	sudo systemctl start bluetooth.service
 fi
 
+if is_nvidia; then
+	sudo pacman -S --needed --noconfirm nvidia nvidia-utils && sudo mkinitcpio -p linux
+fi
+
 if has_command nvidia-xconfig; then
-	sudo mkinitcpio -p linux-lts
+	sudo mkinitcpio -p linux
 fi
 
 if has_command nordvpn; then
@@ -54,6 +60,9 @@ fi
 
 if has_command virt-manager; then
 	sudo usermod -aG libvirt $USER
+	sudo virsh net-start default
+	sudo systemctl enable libvirtd
+	sudo systemctl start libvirtd
 fi
 
 #------------------------------------------------------------
@@ -90,19 +99,23 @@ curl -Lfs $URL_NVM | bash
 
 # SHELL VARIABLES
 
-echo "$(
-	cat <<-EOF
-		set -Ux LD_LIBRARY_PATH /opt/cuda/lib64
-	EOF
-)" | fish -c "source -"
+if is_nvidia; then
+    echo "$(
+        cat <<-EOF
+            set -Ux LD_LIBRARY_PATH /opt/cuda/lib64
+        EOF
+    )" | fish -c "source -"
+fi
 
 # SHELL PATH
 
-echo "$(
-	cat <<-EOF
-		fish_add_path /opt/cuda/bin
-	EOF
-)" | fish -c "source -"
+if is_nvidia; then
+    echo "$(
+        cat <<-EOF
+            fish_add_path /opt/cuda/bin
+        EOF
+    )" | fish -c "source -"
+fi
 
 # KORA
 
@@ -175,25 +188,6 @@ echo "$(
 		set -U fish_pager_color_progress brwhite --background=cyan
 	EOF
 )" | fish -c "source -"
-
-#------------------------------------------------------------
-# REMOVING BINs
-#------------------------------------------------------------
-
-# sudo pacman -R htop vim
-
-#------------------------------------------------------------
-# REMOVES APPLICATION LINK
-#------------------------------------------------------------
-
-# sudo rm -f /usr/share/applications/avahi-discover.desktop
-# sudo rm -f /usr/share/applications/bssh.desktop
-# sudo rm -f /usr/share/applications/bvnc.desktop
-# sudo rm -f /usr/share/applications/lstopo.desktop
-# sudo rm -f /usr/share/applications/qv4l2.desktop
-# sudo rm -f /usr/share/applications/qvidcap.desktop
-# sudo rm -f /usr/share/applications/fish.desktop
-# sudo rm -f /usr/share/applications/cmake-gui.desktop
 
 #------------------------------------------------------------
 # CREATE CONFIG FOLDERS

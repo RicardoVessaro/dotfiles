@@ -1,39 +1,22 @@
-vim.g.base46_cache = vim.fn.stdpath("data") .. "/nvchad/base46/"
-vim.g.mapleader = " "
+-- options
+require("options")
 
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+-- package manager
+require("config.lazy")
 
-if not vim.loop.fs_stat(lazypath) then
-  local repo = "https://github.com/folke/lazy.nvim.git"
-  vim.fn.system({ "git", "clone", "--filter=blob:none", repo, "--branch=stable", lazypath })
-end
+-- lsp
+require("config.java")
+require("config.lspconfig")
+require("config.mason")
 
-vim.opt.rtp:prepend(lazypath)
+-- mapppings
+require "mappings"
 
-local lazy_config = require("configs.lazy")
+-- colorscheme
+vim.cmd("colorscheme rose-pine")
 
-require("lazy").setup({
-  {
-    "NvChad/NvChad",
-    lazy = false,
-    branch = "v2.5",
-    import = "nvchad.plugins",
-    config = function()
-      require("options")
-    end,
-  },
-  { import = "plugins" },
-}, lazy_config.opts)
-
-dofile(vim.g.base46_cache .. "defaults")
-dofile(vim.g.base46_cache .. "statusline")
-
-require("nvchad.autocmds")
-
-vim.schedule(function()
-  require("mappings")
-end)
-
+-- neovide
 if vim.g.neovide then
-  require("ginit")
+    require("ginit")
 end
+
