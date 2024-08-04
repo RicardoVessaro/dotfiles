@@ -100,21 +100,21 @@ curl -Lfs $URL_NVM | bash
 # SHELL VARIABLES
 
 if is_nvidia; then
-    echo "$(
-        cat <<-EOF
-            set -Ux LD_LIBRARY_PATH /opt/cuda/lib64
-        EOF
-    )" | fish -c "source -"
+echo "$(
+cat <<-EOF
+    set -Ux LD_LIBRARY_PATH /opt/cuda/lib64
+EOF
+)" | fish -c "source -"
 fi
 
 # SHELL PATH
 
 if is_nvidia; then
-    echo "$(
-        cat <<-EOF
-            fish_add_path /opt/cuda/bin
-        EOF
-    )" | fish -c "source -"
+echo "$(
+cat <<-EOF
+    fish_add_path /opt/cuda/bin
+EOF
+)" | fish -c "source -"
 fi
 
 # KORA
@@ -200,3 +200,4 @@ ln -s $HOME/Projects/dotfiles/bottom $HOME/.config/bottom
 ln -s $HOME/Projects/dotfiles/bat $HOME/.config/bat
 ln -s $HOME/Projects/dotfiles/alacritty $HOME/.config/alacritty
 ln -s $HOME/Projects/dotfiles/qtile $HOME/.config/qtile
+
