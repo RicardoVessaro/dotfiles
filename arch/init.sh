@@ -29,7 +29,7 @@ pikaur -S --needed \
 	qalculate-gtk neovim neovide virt-manager pavucontrol unrar unzip \
 	ttf-jetbrains-mono-nerd ttf-firacode-nerd ttf-cascadia-code-nerd \
 	ttf-droid ttf-monaco ttf-fira-sans ttf-liberation noto-fonts \
-	noto-fonts-cjk noto-fonts-emoji noto-fonts-extra nordvpn-bin \
+	noto-fonts-cjk noto-fonts-emoji noto-fonts-extra \
 	docker docker-compose papirus-icon-theme bluez bluez-utils \
 	qemu-full dnsmasq
 
@@ -44,13 +44,6 @@ fi
 
 if has_command nvidia-xconfig; then
 	sudo mkinitcpio -p linux
-fi
-
-if has_command nordvpn; then
-	sudo groupadd -r nordvpn
-	sudo gpasswd -a $USER nordvpn
-	sudo usermod -aG nordvpn $USER
-	sudo systemctl enable nordvpnd
 fi
 
 if has_command docker; then
