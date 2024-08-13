@@ -8,6 +8,10 @@ has_command() {
 	command -v "$1" >/dev/null 2>&1
 }
 
+is_nvidia() {
+	lspci | grep -I "NVIDIA" >/dev/null 2>&1
+}
+
 #------------------------------------------------------------
 # YAY
 #------------------------------------------------------------
@@ -20,19 +24,33 @@ fi
 
 pikaur -S --needed \
 	helix fd xclip bat fish ripgrep exa base-devel zip less git clang \
-	cmake llvm v4l-utils bottom \
-	alacritty obs-studio tk tree \
-	virt-manager pavucontrol unrar unzip \
+	cuda-tools tmux tmux-plugin-manager cmake llvm v4l-utils bottom \
+	vivaldi alacritty lightdm-gtk-greeter-settings tk tree \
+	qalculate-gtk neovim neovide virt-manager pavucontrol unrar unzip \
 	ttf-jetbrains-mono-nerd ttf-firacode-nerd ttf-cascadia-code-nerd \
 	ttf-droid ttf-monaco ttf-fira-sans ttf-liberation noto-fonts \
-	noto-fonts-cjk noto-fonts-emoji noto-fonts-extra \
-	docker docker-compose nvidia-lts nvidia-utils \
-	papirus-icon-theme-git bluez bluez-utils \
-	qemu-full
+	noto-fonts-cjk noto-fonts-emoji noto-fonts-extra nordvpn-bin \
+	docker docker-compose papirus-icon-theme bluez bluez-utils \
+	qemu-full dnsmasq
 
 if has_command bluetoothctl; then
 	sudo systemctl enable bluetooth.service
 	sudo systemctl start bluetooth.service
+fi
+
+if is_nvidia; then
+	sudo pacman -S --needed --noconfirm nvidia nvidia-utils && sudo mkinitcpio -p linux
+fi
+
+if has_command nvidia-xconfig; then
+	sudo mkinitcpio -p linux
+fi
+
+if has_command nordvpn; then
+	sudo groupadd -r nordvpn
+	sudo gpasswd -a $USER nordvpn
+	sudo usermod -aG nordvpn $USER
+	sudo systemctl enable nordvpnd
 fi
 
 if has_command docker; then
@@ -42,6 +60,9 @@ fi
 
 if has_command virt-manager; then
 	sudo usermod -aG libvirt $USER
+	sudo virsh net-start default
+	sudo systemctl enable libvirtd
+	sudo systemctl start libvirtd
 fi
 
 #------------------------------------------------------------
@@ -68,6 +89,26 @@ curl -Lfs $URL_NVM | bash
 #------------------------------------------------------------
 # FISH CONFIG
 #------------------------------------------------------------
+
+# SHELL VARIABLES
+
+if is_nvidia; then
+echo "$(
+cat <<-EOF
+    set -Ux LD_LIBRARY_PATH /opt/cuda/lib64
+EOF
+)" | fish -c "source -"
+fi
+
+# SHELL PATH
+
+if is_nvidia; then
+echo "$(
+cat <<-EOF
+    fish_add_path /opt/cuda/bin
+EOF
+)" | fish -c "source -"
+fi
 
 # KORA
 
@@ -147,3 +188,5 @@ echo "$(
 ln -s $HOME/Projects/dotfiles/bottom $HOME/.config/bottom
 ln -s $HOME/Projects/dotfiles/bat $HOME/.config/bat
 ln -s $HOME/Projects/dotfiles/alacritty $HOME/.config/alacritty
+ln -s $HOME/Projects/dotfiles/qtile $HOME/.config/qtile
+
