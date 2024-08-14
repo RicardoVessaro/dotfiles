@@ -108,20 +108,20 @@ fi
 mkdir -p $HOME/.local/bin
 
 echo "$(
-cat <<-EOF
-	#!/bin/sh
+	cat <<-EOF
+		#!/bin/sh
 
-	rm -rf ~/.bash_history
-	rm -rf ~/.lesshst
-	rm -rf ~/.profile
-	rm -rf ~/.python_history
-EOF
+		rm -rf ~/.bash_history
+		rm -rf ~/.lesshst
+		rm -rf ~/.profile
+		rm -rf ~/.python_history
+	EOF
 )" >$HOME/.local/bin/kora
 
 echo "$(
-cat <<-EOF
-	fish_add_path $HOME/.local/bin
-EOF
+	cat <<-EOF
+		fish_add_path $HOME/.local/bin
+	EOF
 )" | fish -c "source -"
 
 chmod +x $HOME/.local/bin/*
@@ -129,49 +129,49 @@ chmod +x $HOME/.local/bin/*
 # ALIASES
 
 echo "$(
-cat <<-EOF
-	alias -s b   "bat"
-	alias -s c   "builtin history clear && history -c && kora && printf '\033[2J\033[3J\033[1;1H'"
-	alias -s l   "exa"
-	alias -s la  "exa -a"
-	alias -s ll  "exa -l"
-	alias -s lla "exa -la"
-	alias -s r   "rm -r"
-	alias -s rf  "rm -rf"
-EOF
+	cat <<-EOF
+		alias -s b   "bat"
+		alias -s c   "builtin history clear && history -c && kora && printf '\033[2J\033[3J\033[1;1H'"
+		alias -s l   "exa"
+		alias -s la  "exa -a"
+		alias -s ll  "exa -l"
+		alias -s lla "exa -la"
+		alias -s r   "rm -r"
+		alias -s rf  "rm -rf"
+	EOF
 )" | fish -c "source -"
 
 # FISH COLORS
 
 echo "$(
-cat <<-EOF
-	set -U fish_color_autosuggestion brblack
-	set -U fish_color_cancel -r
-	set -U fish_color_command brgreen
-	set -U fish_color_comment brmagenta
-	set -U fish_color_cwd green
-	set -U fish_color_cwd_root red
-	set -U fish_color_end brmagenta
-	set -U fish_color_error brred
-	set -U fish_color_escape brcyan
-	set -U fish_color_history_current --bold
-	set -U fish_color_host normal
-	set -U fish_color_match --background=brblue
-	set -U fish_color_normal normal
-	set -U fish_color_operator cyan
-	set -U fish_color_param brblue
-	set -U fish_color_quote yellow
-	set -U fish_color_redirection bryellow
-	set -U fish_color_search_match bryellow --background=brblack
-	set -U fish_color_selection white --bold --background=brblack
-	set -U fish_color_status red
-	set -U fish_color_user brgreen
-	set -U fish_color_valid_path --underline
-	set -U fish_pager_color_completion normal
-	set -U fish_pager_color_description yellow
-	set -U fish_pager_color_prefix white --bold --underline
-	set -U fish_pager_color_progress brwhite --background=cyan
-EOF
+	cat <<-EOF
+		set -U fish_color_autosuggestion brblack
+		set -U fish_color_cancel -r
+		set -U fish_color_command brgreen
+		set -U fish_color_comment brmagenta
+		set -U fish_color_cwd green
+		set -U fish_color_cwd_root red
+		set -U fish_color_end brmagenta
+		set -U fish_color_error brred
+		set -U fish_color_escape brcyan
+		set -U fish_color_history_current --bold
+		set -U fish_color_host normal
+		set -U fish_color_match --background=brblue
+		set -U fish_color_normal normal
+		set -U fish_color_operator cyan
+		set -U fish_color_param brblue
+		set -U fish_color_quote yellow
+		set -U fish_color_redirection bryellow
+		set -U fish_color_search_match bryellow --background=brblack
+		set -U fish_color_selection white --bold --background=brblack
+		set -U fish_color_status red
+		set -U fish_color_user brgreen
+		set -U fish_color_valid_path --underline
+		set -U fish_pager_color_completion normal
+		set -U fish_pager_color_description yellow
+		set -U fish_pager_color_prefix white --bold --underline
+		set -U fish_pager_color_progress brwhite --background=cyan
+	EOF
 )" | fish -c "source -"
 
 #------------------------------------------------------------
