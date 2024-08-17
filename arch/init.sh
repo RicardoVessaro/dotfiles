@@ -23,15 +23,15 @@ if ! has_command pikaur; then
 fi
 
 pikaur -S --needed \
-	helix fd xclip bat fish ripgrep exa base-devel zip less git clang \
+	fd xclip bat fish ripgrep exa base-devel zip less git clang \
 	cuda-tools tmux tmux-plugin-manager cmake llvm v4l-utils bottom \
-	vivaldi alacritty lightdm-gtk-greeter-settings tk tree \
-	qalculate-gtk neovim neovide virt-manager pavucontrol unrar unzip \
+	alacritty lightdm-gtk-greeter-settings tk tree \
+	qalculate-gtk virt-manager pavucontrol unrar unzip \
 	ttf-jetbrains-mono-nerd ttf-firacode-nerd ttf-cascadia-code-nerd \
 	ttf-droid ttf-monaco ttf-fira-sans ttf-liberation noto-fonts \
 	noto-fonts-cjk noto-fonts-emoji noto-fonts-extra \
 	docker docker-compose papirus-icon-theme bluez bluez-utils \
-	qemu-full dnsmasq
+	qemu-full dnsmasq chromium copyq
 
 if has_command bluetoothctl; then
 	sudo systemctl enable bluetooth.service
@@ -44,11 +44,6 @@ fi
 
 if has_command nvidia-xconfig; then
 	sudo mkinitcpio -p linux
-fi
-
-if has_command docker; then
-	sudo usermod -aG docker $USER
-	sudo systemctl enable docker.service docker.socket
 fi
 
 if has_command virt-manager; then
