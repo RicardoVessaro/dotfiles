@@ -24,7 +24,7 @@ fi
 
 pikaur -S --needed \
 	fd xclip bat fish ripgrep exa base-devel zip less git clang \
-	cuda-tools tmux tmux-plugin-manager cmake llvm v4l-utils bottom \
+	tmux tmux-plugin-manager cmake llvm v4l-utils bottom \
 	alacritty tree \
 	virt-manager pavucontrol unrar unzip \
 	ttf-jetbrains-mono-nerd ttf-firacode-nerd ttf-cascadia-code-nerd \
@@ -39,7 +39,7 @@ if has_command bluetoothctl; then
 fi
 
 if is_nvidia; then
-	sudo pacman -S --needed --noconfirm nvidia nvidia-utils && sudo mkinitcpio -p linux
+	sudo pacman -S --needed --noconfirm nvidia nvidia-utils cuda-tools && sudo mkinitcpio -p linux
 fi
 
 if has_command nvidia-xconfig; then
