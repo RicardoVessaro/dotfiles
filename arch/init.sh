@@ -25,13 +25,13 @@ fi
 pikaur -S --needed \
 	fd xclip bat fish ripgrep exa base-devel zip less git clang \
 	cuda-tools tmux tmux-plugin-manager cmake llvm v4l-utils bottom \
-	alacritty lightdm-gtk-greeter-settings tk tree \
-	qalculate-gtk virt-manager pavucontrol unrar unzip \
+	alacritty tree \
+	virt-manager pavucontrol unrar unzip \
 	ttf-jetbrains-mono-nerd ttf-firacode-nerd ttf-cascadia-code-nerd \
 	ttf-droid ttf-monaco ttf-fira-sans ttf-liberation noto-fonts \
 	noto-fonts-cjk noto-fonts-emoji noto-fonts-extra \
 	docker docker-compose papirus-icon-theme bluez bluez-utils \
-	qemu-full dnsmasq chromium copyq
+	qemu-full dnsmasq chromium copyq extension-manager gnome-browser-connector
 
 if has_command bluetoothctl; then
 	sudo systemctl enable bluetooth.service
@@ -44,6 +44,10 @@ fi
 
 if has_command nvidia-xconfig; then
 	sudo mkinitcpio -p linux
+fi
+
+if has_command docker; then
+	sudo systemctl enable docker.service docker.socket
 fi
 
 if has_command virt-manager; then
@@ -61,7 +65,7 @@ URL_OMF="https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/inst
 
 if ! has_command omf; then
 	curl -Lfs $URL_OMF | fish -c "source - --noninteractive --yes" &&
-		fish -c "omf install sdk nvm pure ghcup rustup"
+		fish -c "omf install sdk nvm pure"
 fi
 
 #------------------------------------------------------------
@@ -173,8 +177,7 @@ echo "$(
 # CREATE CONFIG FOLDERS
 #------------------------------------------------------------
 
+ln -s $HOME/Projects/dotfiles/tmux $HOME/.config/tmux
 ln -s $HOME/Projects/dotfiles/bottom $HOME/.config/bottom
 ln -s $HOME/Projects/dotfiles/bat $HOME/.config/bat
 ln -s $HOME/Projects/dotfiles/alacritty $HOME/.config/alacritty
-ln -s $HOME/Projects/dotfiles/qtile $HOME/.config/qtile
-
